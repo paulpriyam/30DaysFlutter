@@ -2,8 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter01/utils/routes.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  String name = "";
+  bool buttonPressed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +28,7 @@ class LoginPage extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              Text("Welcome",
+              Text("Welcome $name",
                   style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
@@ -37,6 +45,11 @@ class LoginPage extends StatelessWidget {
                     TextFormField(
                       decoration: InputDecoration(
                           labelText: "User Name", hintText: "Enter user name"),
+                      onChanged: (value) {
+                        setState(() {
+                          name = value;
+                        });
+                      },
                     ),
                     SizedBox(
                       height: 20,
@@ -48,12 +61,43 @@ class LoginPage extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    ElevatedButton(
-                      onPressed: () {
+                    InkWell(
+                      onTap: () async {
+                        setState(() {
+                          buttonPressed = true;
+                        });
+                        await Future.delayed(Duration(seconds: 1));
                         Navigator.pushNamed(context, MyRoutes.homeRoute);
                       },
-                      child: Text("click"),
+                      child: AnimatedContainer(
+                        duration: Duration(seconds: 1),
+                        width: buttonPressed ? 50 : 150,
+                        height: 50,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: Colors.deepPurple,
+                            borderRadius:
+                            BorderRadius.circular(buttonPressed ? 50 : 8)),
+                        child: buttonPressed
+                            ? Icon(
+                          Icons.done,
+                          color: Colors.white,
+                        )
+                            : Text(
+                          "Login",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
                     )
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     Navigator.pushNamed(context, MyRoutes.homeRoute);
+                    //   },
+                    //   child: Text("click"),
+                    // )
                   ],
                 ),
               )
