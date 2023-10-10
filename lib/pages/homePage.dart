@@ -6,16 +6,14 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: Text("My App")),
-        body: Center(
-          child: Container(
-            child: Text("My First Flutter tutorial"),
-          ),
+    return Scaffold(
+      appBar: AppBar(title: Text("My App")),
+      body: Center(
+        child: Container(
+          child: Text("My First Flutter tutorial"),
         ),
-        drawer: MyDrawer(),
       ),
+      drawer: MyDrawer(),
     );
   }
 }
