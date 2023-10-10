@@ -32,9 +32,7 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
-                      fontFamily: GoogleFonts
-                          .lato()
-                          .fontFamily)),
+                      fontFamily: GoogleFonts.lato().fontFamily)),
               SizedBox(
                 height: 20,
               ),
@@ -61,34 +59,35 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(
                       height: 20,
                     ),
-                    InkWell(
-                      onTap: () async {
-                        setState(() {
-                          buttonPressed = true;
-                        });
-                        await Future.delayed(Duration(seconds: 1));
-                        Navigator.pushNamed(context, MyRoutes.homeRoute);
-                      },
-                      child: AnimatedContainer(
-                        duration: Duration(seconds: 1),
-                        width: buttonPressed ? 50 : 150,
-                        height: 50,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: Colors.deepPurple,
-                            borderRadius:
-                            BorderRadius.circular(buttonPressed ? 50 : 8)),
-                        child: buttonPressed
-                            ? Icon(
-                          Icons.done,
-                          color: Colors.white,
-                        )
-                            : Text(
-                          "Login",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
+                    Material(
+                      color: Colors.deepPurple,
+                      borderRadius:
+                          BorderRadius.circular(buttonPressed ? 50 : 8),
+                      child: InkWell(
+                        onTap: () async {
+                          setState(() {
+                            buttonPressed = true;
+                          });
+                          await Future.delayed(Duration(seconds: 1));
+                          Navigator.pushNamed(context, MyRoutes.homeRoute);
+                        },
+                        child: AnimatedContainer(
+                          duration: Duration(seconds: 1),
+                          width: buttonPressed ? 50 : 150,
+                          height: 50,
+                          alignment: Alignment.center,
+                          child: buttonPressed
+                              ? Icon(
+                                  Icons.done,
+                                  color: Colors.white,
+                                )
+                              : Text(
+                                  "Login",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ),
                         ),
                       ),
                     )
