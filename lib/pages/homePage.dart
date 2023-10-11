@@ -1,24 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter01/model/catalog.dart';
 import 'package:flutter01/widgets/drawer.dart';
 import 'package:flutter01/widgets/itemWidget.dart';
+import 'dart:convert';
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
   @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  loadData() async {
+    await Future.delayed(Duration(seconds: 4));
+    var catalogJson = await rootBundle.loadString("assets/files/catalog.json");
+    var decodedJson = jsonDecode(catalogJson);
+    var products = decodedJson["products"];
+    ItemList.items =
+        List.from(products).map((item) => Item.fromMap(item)).toList();
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final dummyList = List.generate(20, (index) => ItemList.items[0]);
     return Scaffold(
       appBar: AppBar(title: Text("My App")),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ListView.builder(
-          itemCount: dummyList.length,
-          itemBuilder: (context, index) {
-            return ItemWidget(item: dummyList[index]);
-          },
-        ),
+        child: (ItemList.items.isNotEmpty)
+            ? ListView.builder(
+                itemCount: ItemList.items.length,
+                itemBuilder: (context, index) {
+                  return ItemWidget(item: ItemList.items[index]);
+                },
+              )
+            : Container(
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
       ),
       drawer: MyDrawer(),
     );
