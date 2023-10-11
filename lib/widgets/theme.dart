@@ -16,5 +16,5 @@ class MyTheme {
               titleTextStyle: TextStyle(color: Colors.black, fontSize: 20)));
 
   static ThemeData darkTheme(BuildContext context) =>
-      ThemeData(brightness: Brightness.dark)
+      ThemeData(brightness: Brightness.dark);
 }
