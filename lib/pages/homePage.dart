@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter01/model/catalog.dart';
+import 'package:flutter01/pages/detailsPage.dart';
 import 'package:flutter01/widgets/drawer.dart';
 import 'package:flutter01/widgets/itemWidget.dart';
 
