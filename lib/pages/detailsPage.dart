@@ -10,12 +10,50 @@ class DetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Container(
-        padding: EdgeInsets.all(16),
-        child: Card(
-          child: Image.network(item.image),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Card(
+              child: Hero(
+                  tag: Key(item.id.toString()),
+                  child: Image.network(item.image)),
+            ),
+            SizedBox(height: 10,),
+            Text(
+              item.name,
+              style: TextStyle(
+                  color: Colors.deepPurple,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10,),
+            Text(item.desc,style: TextStyle(color: Colors.deepPurple,fontSize: 20,fontWeight: FontWeight.w100),)
+          ],
         ),
       ),
+      bottomNavigationBar: Container(
+          color: Colors.white70,
+          height: 60,
+          child: ListTile(
+            leading: Text(
+              "\$${item.price.toString()}",
+              style: TextStyle(fontSize: 20, color: Colors.deepPurple),
+            ),
+            trailing: ElevatedButton(
+              onPressed: () {},
+              style: ButtonStyle(backgroundColor:
+                  MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                if (states.contains(MaterialState.disabled)) {
+                  return Colors.black38;
+                }
+                return Colors.amber;
+              })),
+              child: Text("Buy Now"),
+            ),
+          )),
     );
   }
 }

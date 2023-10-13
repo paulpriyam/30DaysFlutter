@@ -33,32 +33,60 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("My App")),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      appBar: AppBar(title: const Text("My App")),
+      body: const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [HomePageHeaderWidget(), CatalogListView()],
+      ),
+      drawer: const MyDrawer(),
+    );
+  }
+}
+
+class HomePageHeaderWidget extends StatelessWidget {
+  const HomePageHeaderWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Catalog App",
+            style: TextStyle(color: Colors.deepPurple, fontSize: 30),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Text(
+            "Trending Products",
+            style: TextStyle(fontSize: 20, color: Colors.deepPurple),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class CatalogListView extends StatelessWidget {
+  const CatalogListView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
         child: (ItemList.items.isNotEmpty)
-            ? GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 16,
-                    crossAxisSpacing: 16),
+            ? ListView.builder(
+                itemCount: ItemList.items.length,
                 itemBuilder: (context, index) {
                   final item = ItemList.items[index];
-                  return GridTile(
-                    child: Image.network(item.image),
-                    header: Text(item.name),
-                    footer: Text(item.price.toString()),
-                  );
-                },
-                itemCount: ItemList.items.length,
-              )
+                  return ItemWidget(item: item);
+                })
             : Container(
                 child: const Center(
                   child: CircularProgressIndicator(),
                 ),
-              ),
-      ),
-      drawer: MyDrawer(),
-    );
+              ));
   }
 }

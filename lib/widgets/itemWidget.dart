@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter01/model/catalog.dart';
+import 'package:flutter01/pages/detailsPage.dart';
 
 class ItemWidget extends StatelessWidget {
   final Item item;
@@ -10,13 +11,19 @@ class ItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        onTap: (){
-          print("${item.name} pressed");
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => DetailsPage(item: item)));
         },
-        leading: Image.network(item.image),
+        leading: Hero(
+            tag: Key(item.id.toString()), child: Image.network(item.image)),
         title: Text(item.name),
         subtitle: Text(item.desc),
-        trailing: Text("\$${item.price}",style: TextStyle(color: Colors.deepPurple),textScaleFactor: 1.2,),
+        trailing: Text(
+          "\$${item.price}",
+          style: TextStyle(color: Colors.deepPurple),
+          textScaleFactor: 1.2,
+        ),
       ),
     );
   }
