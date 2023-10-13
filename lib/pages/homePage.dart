@@ -36,11 +36,20 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: (ItemList.items.isNotEmpty)
-            ? ListView.builder(
-                itemCount: ItemList.items.length,
+            ? GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 16,
+                    crossAxisSpacing: 16),
                 itemBuilder: (context, index) {
-                  return ItemWidget(item: ItemList.items[index]);
+                  final item = ItemList.items[index];
+                  return GridTile(
+                    child: Image.network(item.image),
+                    header: Text(item.name),
+                    footer: Text(item.price.toString()),
+                  );
                 },
+                itemCount: ItemList.items.length,
               )
             : Container(
                 child: const Center(
