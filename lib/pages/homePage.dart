@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter01/model/catalog.dart';
 import 'package:flutter01/pages/detailsPage.dart';
+import 'package:flutter01/utils/routes.dart';
 import 'package:flutter01/widgets/drawer.dart';
 import 'package:flutter01/widgets/itemWidget.dart';
 import 'dart:convert';
@@ -21,7 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   loadData() async {
-    await Future.delayed(Duration(seconds: 4));
+    // await Future.delayed(Duration(seconds: 4));
     var catalogJson = await rootBundle.loadString("assets/files/catalog.json");
     var decodedJson = jsonDecode(catalogJson);
     var products = decodedJson["products"];
@@ -37,6 +39,12 @@ class _MyHomePageState extends State<MyHomePage> {
       body: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [HomePageHeaderWidget(), CatalogListView()],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, MyRoutes.cartPageRoute);
+        },
+        child: Icon(CupertinoIcons.cart),
       ),
       drawer: const MyDrawer(),
     );
